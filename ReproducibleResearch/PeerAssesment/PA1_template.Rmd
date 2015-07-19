@@ -1,0 +1,152 @@
+---
+title: "Reproducible Research - Peer Assessment 1"
+author: "DA"
+date: "July 17, 2015"
+output: html_document
+---
+
+##**Loading and preprocessing the data**
+**This section will present step by step solution for this part.  
+First, load the data and display a few entries**
+
+```{r echo = TRUE}
+activityData<-read.csv("activity.csv")
+head(activityData)
+```
+
+**Next step is to clean the data (removing the NAs) ** 
+```{r echo = TRUE}
+cleanActivityData <- activityData[complete.cases(activityData),]
+head(cleanActivityData)
+```
+**At this point we have two dataframes containing the data to be further processed.**  
+```{r echo = TRUE}
+str(activityData)
+str(cleanActivityData)
+```
+
+
+##**What is mean total number of steps taken per day?**
+**The next part presents the step by step solution for the second section. **
+
+
+**Calculate the total number of steps taken per day**
+```{r echo = TRUE}
+totalStepsPerDay <-aggregate(steps~date, data = cleanActivityData, sum)
+```
+  
+  
+  
+**Now let's create a histogram for this data**
+```{r echo = TRUE,scatterplot, height=4}
+hist(totalStepsPerDay$steps, plot = TRUE, main="Histogram for total steps per day", 
+     xlab="Steps", 
+     border="red", 
+     col="blue",
+     breaks=5)
+```
+
+**Calculate the mean number of steps per day and report findings**  
+```{r echo = TRUE}
+meanStepsPerDay <- aggregate(steps~date, data = cleanActivityData, mean)
+library(knitr)
+kable(meanStepsPerDay, format = "markdown")
+```
+
+
+**Calculate the median number of steps per day**  
+```{r echo = TRUE}
+medianStepsPerDay <- aggregate(steps~date, data = cleanActivityData, median)
+kable(medianStepsPerDay, format = "markdown")
+```
+
+##**What is the average daily activity pattern?**
+
+**Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)**
+
+```{r, echo = TRUE}
+plot(steps~date, meanStepsPerDay, xaxt = "n", type = "l")
+```
+
+##**Imputing missing values**
+**Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)**
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r, echo = TRUE}
+numeberOfNARows <- nrow(activityData) - nrow(cleanActivityData)
+cat(sprintf("Number of rows with NA steps: %d\n", numeberOfNARows ))
+```
+**Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.**  
+Solution: one strategy to fill in for the missing values (NAs) will be to replace NAs with 0 steps.
+
+**Create a new dataset that is equal to the original dataset but with the missing data filled in.**
+
+```{r, echo = TRUE}
+filledActivityData <- activityData
+filledActivityData["steps"][is.na(filledActivityData["steps"])]<-0
+head(filledActivityData)
+```
+
+**Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?**
+
+Here we will redo the previous calculations using the filled in for NAs activity data
+
+
+**Calculate the total number of steps taken per day**
+```{r echo = TRUE}
+totalStepsPerDay2 <-aggregate(steps~date, data = filledActivityData, sum)
+```
+  
+  
+  
+**The histogram for this new data**
+```{r echo = TRUE,scatterplot2, height=4}
+hist(totalStepsPerDay2$steps, plot = TRUE, main="Histogram for total steps per day (NAs filled in)", 
+     xlab="Steps", 
+     border="blue", 
+     col="red",
+     breaks=5)
+```
+
+**Calculate the mean number of steps per day and report findings**  
+```{r echo = TRUE}
+meanStepsPerDay2 <- aggregate(steps~date, data = totalStepsPerDay2, mean)
+library(knitr)
+kable(meanStepsPerDay, format = "markdown")
+```
+
+
+**Calculate the median number of steps per day**  
+```{r echo = TRUE}
+medianStepsPerDay2 <- aggregate(steps~date, data = totalStepsPerDay2, median)
+kable(medianStepsPerDay, format = "markdown")
+```
+
+##**Are there differences in activity patterns between weekdays and weekends?**
+
+**Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.**
+```{r echo = TRUE}
+filledActivityData2 <- filledActivityData
+filledActivityData2$date <- as.Date(filledActivityData2$date)
+filledActivityData2$weekend <- chron::is.weekend(filledActivityData2$date)
+head(filledActivityData2)
+```
+
+**Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.**
+
+Weekend
+
+```{r echo = TRUE}
+meanWeekendStepsPerDay <- aggregate(steps~date, data = filledActivityData2[filledActivityData2$weekend == TRUE,], mean)
+plot(steps~date, meanWeekendStepsPerDay, xaxt = "n", type = "l")
+```
+
+Week days
+
+```{r echo = TRUE}
+meanWeekStepsPerDay <- aggregate(steps~date, data = filledActivityData2[filledActivityData2$weekend == FALSE,], mean)
+plot(steps~date, meanWeekStepsPerDay, xaxt = "n", type = "l")
+```
+
+
+
