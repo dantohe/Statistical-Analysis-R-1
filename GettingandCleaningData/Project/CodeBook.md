@@ -241,7 +241,7 @@ filtered_variable_data_set$activity[filtered_variable_data_set$activity=="5"]<-"
 filtered_variable_data_set$activity[filtered_variable_data_set$activity=="6"]<-"LAYING"
 ```
 
-#Calculate the wide tidy data set
+##Calculate the wide tidy data set
 Now calculate the wide tidy data set by calculating the means for features.
 
 
@@ -299,3 +299,110 @@ cat(paste("Tidy data set has  ",ncol(tidy_data_set)," columns and ",nrow(tidy_da
 ```r
 #write.table(tidy_data_set, file = "independent_tidy_data_set.txt", row.name=FALSE)
 ```
+
+#**Feature Code Book**
+The tidy data set contains the following features:
+
+
+There are 50 features.  
+
+
+1. "subject" - discrete - identifies the subject 
+
+2. "activity" - discrete - type of activity - possible values "WALKING", WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING
+
+3. "tBodyAcc-mean()-X" - continuous - time domain signal accelerometer mean on X - the mean value
+
+4. "tBodyAcc-mean()-Y" - continuous - time domain signal accelerometer mean on Y - the mean value
+
+5. "tBodyAcc-mean()-Z" - continuous - time domain signal accelerometer mean on Z - the mean value
+
+6. "tBodyAcc-std()-X" - continuous - time domain signal accelerometer standard deviation on X - the mean value
+
+7. "tBodyAcc-std()-Y" - continuous - time domain signal accelerometer standard deviation on Y - the mean value
+
+8. "tBodyAcc-std()-Z" - continuous - time domain signal accelerometer standard deviation on Z - the mean value
+
+9. "tGravityAcc-mean()-X" - continuous - time domain signal gyroscope mean on X - the mean value
+
+10. "tGravityAcc-mean()-Y" - continuous - time domain signal gyroscope mean on Y - the mean value
+
+11. "tGravityAcc-mean()-Z" - continuous - time domain signal gyroscope mean on Z - the mean value
+
+12. "tGravityAcc-std()-X" - continuous - time domain signal gyroscope standard deviation on X - the mean value
+
+13. "tGravityAcc-std()-Y" - continuous - time domain signal gyroscope standard deviation on Y - the mean value
+
+14. "tGravityAcc-std()-Z" - continuous - time domain signal gyroscope standard deviation on Z - the mean value
+
+15. "tBodyAccJerk-mean()-X" - continuous - time domain signal accelerometer mean on X - the mean value
+
+16. "tBodyAccJerk-mean()-Y" - continuous - time domain signal accelerometer mean on Y - the mean value
+
+17. "tBodyAccJerk-mean()-Z" - continuous - time domain signal accelerometer mean on X - the mean value
+
+18. "tBodyAccJerk-std()-X" - continuous - time domain signal accelerometer mean on X - the mean value
+
+19. "tBodyAccJerk-std()-Y" - continuous - time domain signal accelerometer mean on Y - the mean value
+
+20. "tBodyAccJerk-std()-Z" - continuous - time domain signal accelerometer mean on Z - the mean value
+
+21. "tBodyGyro-mean()-X" - continuous - time domain signal gyroscope mean on X - the mean value
+
+22. "tBodyGyro-mean()-Y" - continuous - time domain signal gyroscope mean on Y - the mean value
+
+23. "tBodyGyro-mean()-Z" - continuous - time domain signal gyroscope mean on Z - the mean value
+
+24. "tBodyGyro-std()-X" - continuous - time domain signal accelerometer mean on x - the mean value
+
+25. "tBodyGyro-std()-Y" - continuous - time domain signal accelerometer mean on Y - the mean value
+
+26. "tBodyGyro-std()-Z" - continuous - time domain signal accelerometer mean on Z - the mean value
+
+27. "tBodyGyroJerk-mean()-X" - continuous - time domain signal gyroscope mean on X - the mean value
+
+28. "tBodyGyroJerk-mean()-Y" - continuous - time domain signal gyroscope mean on Y - the mean value
+
+29. "tBodyGyroJerk-mean()-Z" - continuous - time domain signal gyroscope mean on Z - the mean value
+
+30. "tBodyGyroJerk-std()-X" - continuous - time domain signal gyroscope mean on X - the mean value
+
+31. "tBodyGyroJerk-std()-Y" - continuous - time domain signal gyroscope mean on Y - the mean value
+
+32. "tBodyGyroJerk-std()-Z" - continuous - time domain signal gyroscope mean on Z - the mean value
+
+33. "fBodyAcc-mean()-X" - continuous - time domain signal accelerometer mean on X - the mean value
+
+34. "fBodyAcc-mean()-Y" - continuous - time domain signal accelerometer mean on Y - the mean value
+
+35. "fBodyAcc-mean()-Z" - continuous - time domain signal accelerometer mean on Z - the mean value
+
+36. "fBodyAcc-std()-X" - continuous - time domain signal accelerometer mean on X - the mean value
+
+37. "fBodyAcc-std()-Y" - continuous - time domain signal accelerometer mean on Y - the mean value
+
+38. "fBodyAcc-std()-Z" - continuous - time domain signal accelerometer mean on Z - the mean value
+
+39. "fBodyAccJerk-mean()-X" - continuous - time domain signal accelerometer mean on X - the mean value
+
+40. "fBodyAccJerk-mean()-Y" - continuous - time domain signal accelerometer mean on Y - the mean value
+
+41. "fBodyAccJerk-mean()-Z" - continuous - time domain signal accelerometer mean on Z - the mean value
+
+42. "fBodyAccJerk-std()-X" - continuous - time domain signal accelerometer mean on X - the mean value
+
+43. "fBodyAccJerk-std()-Y" - continuous - time domain signal accelerometer mean on Y - the mean value
+
+44. "fBodyAccJerk-std()-Z" - continuous - time domain signal accelerometer mean on Z - the mean value
+
+45. "fBodyGyro-mean()-X" - continuous - time domain signal gyroscope mean on X - the mean value
+
+46. "fBodyGyro-mean()-Y" - continuous - time domain signal gyroscope mean on Y - the mean value
+
+47. "fBodyGyro-mean()-Z" - continuous - time domain signal gyroscope mean on Z - the mean value
+
+48. "fBodyGyro-std()-X" - continuous - time domain signal gyroscope mean on X - the mean value
+
+49. "fBodyGyro-std()-Y" - continuous - time domain signal gyroscope mean on Y - the mean value
+
+50. "fBodyGyro-std()-Z"- continuous - time domain signal gyroscope mean on Z - the mean value
