@@ -15,52 +15,121 @@ The resources are available on Github [here](https://github.com/dantohe/datascie
 
 2. independent_tidy_data_set.txt - the tidy data set which is the solution for point 5 of the project requirement
 
-3. CodeBokk - the code book for the tidy data set  - describes the features from independent_tidy_data_set.txt
+3. CodeBook.md - (this file) the code book for the tidy data set  - describes the features from independent_tidy_data_set.txt
 
-4. PROJECT_README.txt - this file
+4. README.md - a simple README for the project
 
 ##Running the script and generating the tidy data set
 
 To run and generate the tidy data set follow the next step:
-1. download the original data set from [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+
+1. Download the original data set from [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+
 2. Unpack the content of the zip file 
+
 3. Go inside the unpacked folder and look for the data root: "UCI HAR Dataset"
+
 4. Place there (in "UCI HAR Dataset" directory) run_analysis.R script - the script needs to be at the same level with "test" and "train" directories 
-5. Run the script - it is recommended to run the script inside the R Studio - by setting the work directory to the directory where the run_analysis.R  was placed. To run just issue the following command inside the "R Studio" console:
+
+5. Run the script - it is recommended to run the script inside the R Studio - by setting the work directory to the directory where the run_analysis.R  was placed.
+To run just issue the following command inside the "R Studio" console:  
 source('run_analysis.R')
+
 6. By running the above a script independent_tidy_data_set.txt will be created.
+
 
 
 #**Data processing steps**
 
 ##Loading the raw data
 This step just load all the files into variables (data frames)
-```{r, echo=TRUE}
+
+```r
 cat ("Loading raw data\n")
+```
+
+```
+## Loading raw data
+```
+
+```r
 # 'features.txt': List of all features.
 features_raw <- read.table(file = "features.txt")
 cat(paste("features.txt - loaded ",nrow(features_raw)," rows\n"))
+```
+
+```
+## features.txt - loaded  561  rows
+```
+
+```r
 #'activity_labels.txt': Links the class labels with their activity name.
 activity_labels_raw <- read.table(file = "activity_labels.txt")
 cat(paste("activity_labels.txt - loaded ",nrow(activity_labels_raw)," rows\n"))
+```
+
+```
+## activity_labels.txt - loaded  6  rows
+```
+
+```r
 # 'subject_train.txt': List of test subjects.
 training_subjects_raw <- read.table(file = "train/subject_train.txt")
 cat(paste("train/subject_train.txt - loaded ",nrow(training_subjects_raw)," rows\n"))
+```
+
+```
+## train/subject_train.txt - loaded  7352  rows
+```
+
+```r
 # - 'train/X_train.txt': Training set.
 training_set_raw  <- read.table(file = "train/X_train.txt")
 cat(paste("train/X_train.txt - loaded ",nrow(training_set_raw)," rows\n"))
+```
+
+```
+## train/X_train.txt - loaded  7352  rows
+```
+
+```r
 # - 'train/y_train.txt': Training labels.
 training_set_labels_raw  <- read.table(file = "train/y_train.txt")
 cat(paste("train/y_train.txt - loaded ",nrow(training_set_labels_raw)," rows\n"))
+```
+
+```
+## train/y_train.txt - loaded  7352  rows
+```
+
+```r
 # 'subject_test.txt': List of test subjects.
 test_subjects_raw <- read.table(file = "test/subject_test.txt")
 cat(paste("test/subject_test.txt - loaded ",nrow(test_subjects_raw)," rows\n"))
+```
+
+```
+## test/subject_test.txt - loaded  2947  rows
+```
+
+```r
 # - 'test/X_test.txt': Test set.
 test_set_raw  <- read.table(file = "test/X_test.txt")
 cat(paste("test/X_test.txt - loaded ",nrow(test_set_raw)," rows\n"))
+```
+
+```
+## test/X_test.txt - loaded  2947  rows
+```
+
+```r
 # - 'test/y_test.txt': Test labels.
 test_set_labels_raw  <- read.table(file = "test/y_test.txt")
 cat(paste("test/y_test.txt - loaded ",nrow(test_set_labels_raw)," rows\n\n"))
+```
+
+```
+## test/y_test.txt - loaded  2947  rows
 ```
 
 ##Combine train and test data
@@ -68,11 +137,18 @@ This step creates data frames for test and train data by adding activity and sub
 At the end combines the train and test data to create a single large data frames containing all records (with the activity and subject columns added).
 You can also embed plots, for example:
 
-```{r, echo=TRUE}
 
+```r
 #this function creates data frames for test and train data by adding activity and subject columns to the waw data 
 #at the end combines the train and test data to create a single large data frames containing all records (with the activity and subject columns added)
 cat("Preparing training data\n")
+```
+
+```
+## Preparing training data
+```
+
+```r
 # PROCESSING TRAINING SET
 #change the column names for the data frames
 colnames(training_subjects_raw) <- c("subject")
@@ -84,8 +160,21 @@ colnames(training_set_raw) <- features_raw$V2
 #SUBJECT, ACTIVITY, FEATURES (all the features)
 saf_training_set_raw <- cbind(training_subjects_raw,training_set_labels_raw, training_set_raw)
 cat(paste("Training data has ",ncol(saf_training_set_raw)," columns and ",nrow(saf_training_set_raw)," rows\n" ))
+```
 
+```
+## Training data has  563  columns and  7352  rows
+```
+
+```r
 cat("Preparing test data\n")
+```
+
+```
+## Preparing test data
+```
+
+```r
 # PROCESSING TRAINING SET
 #change the column names for the data frames
 colnames(test_subjects_raw) <- c("subject")
@@ -97,18 +186,35 @@ colnames(test_set_raw) <- features_raw$V2
 #SUBJECT, ACTIVITY, FEATURES (all the features)
 saf_test_set_raw <- cbind(test_subjects_raw,test_set_labels_raw, test_set_raw)
 cat(paste("Test data has ",ncol(saf_test_set_raw)," columns and ",nrow(saf_test_set_raw)," rows\n" ))
+```
 
+```
+## Test data has  563  columns and  2947  rows
+```
+
+```r
 #combine (rbind) the test and training data - the result will be a 
 combined_test_and_training_raw <- rbind(saf_training_set_raw, saf_test_set_raw)
 cat(paste("Combined test and training data has ",ncol(combined_test_and_training_raw)," columns and ",nrow(combined_test_and_training_raw)," rows\n" ))
 ```
 
+```
+## Combined test and training data has  563  columns and  10299  rows
+```
+
 ##Filter features
 The raw data set has 561 features - we need to filter down to only those encoding mean and std deviation of some features. 
 The following function does exactly that - the output will be a data frame having subject, activity and 48 columns containing only the desired features.
-```{r, echo=TRUE}
 
+```r
 cat("Filtering features - keep only subject, activity and 48 that are means and std.deviation\n")
+```
+
+```
+## Filtering features - keep only subject, activity and 48 that are means and std.deviation
+```
+
+```r
 #only some columns are of interest 
 #collect the variable names
 filtered_names <- grep(".+(mean\\(\\)|std\\(\\)).+", as.character(features_raw$V2), ignore.case = TRUE, perl=TRUE)
@@ -119,9 +225,14 @@ filtered_variable_data_set <- combined_test_and_training_raw[kept_variable_names
 cat(paste("Data set filterd for features has ",ncol(filtered_variable_data_set)," columns and ",nrow(filtered_variable_data_set)," rows\n" ))
 ```
 
+```
+## Data set filterd for features has  50  columns and  10299  rows
+```
+
 ##Change activity names
 Changes the activity names to replace the numbers with descriptive activity names.
-```{r, echo=TRUE}
+
+```r
 filtered_variable_data_set$activity[filtered_variable_data_set$activity=="1"]<-"WALKING"
 filtered_variable_data_set$activity[filtered_variable_data_set$activity=="2"]<-"WALKING_UPSTAIRS"
 filtered_variable_data_set$activity[filtered_variable_data_set$activity=="3"]<-"WALKING_DOWNSTAIRS"
@@ -133,12 +244,18 @@ filtered_variable_data_set$activity[filtered_variable_data_set$activity=="6"]<-"
 #Calculate the wide tidy data set
 Now calculate the wide tidy data set by calculating the means for features.
 
-```{r, echo=TRUE}
 
+```r
 #get the unique/distinct combination of subject and activity
 subject_activities <- unique(filtered_variable_data_set[c("subject","activity")])
 cat(paste("Distinct combinations of subject and activity has ",ncol(subject_activities)," columns and ",nrow(subject_activities)," rows\n" ))
+```
 
+```
+## Distinct combinations of subject and activity has  2  columns and  180  rows
+```
+
+```r
 #iterate through the unique combination and calculate the means
 tidy_data_set <-data.frame()
 for(i in 1:nrow(subject_activities)) {
@@ -172,8 +289,13 @@ colnames(tidy_data_set)<-colnames(filtered_variable_data_set)
 cat(paste("Tidy data set has  ",ncol(tidy_data_set)," columns and ",nrow(tidy_data_set)," rows\n" ))
 ```
 
+```
+## Tidy data set has   50  columns and  180  rows
+```
+
 ##Final Step - write the file
 
-```{r, echo=TRUE}
+
+```r
 #write.table(tidy_data_set, file = "independent_tidy_data_set.txt", row.name=FALSE)
 ```
